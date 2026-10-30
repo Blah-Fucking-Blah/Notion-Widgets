@@ -1,0 +1,2012 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="amethyst" data-bg="purple-mesh">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dark Sanctuary — Notion Command Center</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400;1,600&family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-base: #0d0714;
+      --bg-gradient: 
+        radial-gradient(circle at 12% 18%, rgba(147, 51, 234, 0.34) 0%, transparent 48%),
+        radial-gradient(circle at 86% 22%, rgba(192, 38, 211, 0.22) 0%, transparent 45%),
+        radial-gradient(circle at 50% 85%, rgba(88, 28, 135, 0.42) 0%, transparent 58%),
+        linear-gradient(145deg, #09040e 0%, #150a24 48%, #0b0512 100%);
+      
+      --glass-surface: rgba(24, 14, 38, 0.56);
+      --glass-card: rgba(34, 19, 54, 0.52);
+      --glass-card-hover: rgba(48, 26, 76, 0.66);
+      --glass-flap-top: rgba(30, 16, 49, 0.78);
+      --glass-flap-bottom: rgba(21, 11, 36, 0.86);
+      --glass-border: rgba(216, 180, 254, 0.18);
+      --glass-highlight: rgba(255, 255, 255, 0.12);
+
+      --text-primary: #f5f0ff;
+      --text-secondary: #c4b5fd;
+      --text-muted: #7c689b;
+
+      --accent: #a855f7;
+      --accent-bright: #d8b4fe;
+      --accent-soft: rgba(168, 85, 247, 0.22);
+      --accent-glow: rgba(168, 85, 247, 0.48);
+      --gold-accent: #e9d5ff;
+
+      --orb-1: rgba(168, 85, 247, 0.42);
+      --orb-2: rgba(217, 70, 239, 0.28);
+      --orb-3: rgba(109, 40, 217, 0.36);
+
+      --stake-lethal: #f43f5e;
+      --stake-looming: #f59e0b;
+      --stake-drifting: #a855f7;
+
+      --font-display: 'Cinzel', serif;
+      --font-editorial: 'Cormorant Garamond', serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --font-sans: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    [data-theme="crimson"] {
+      --accent: #e11d48;
+      --accent-bright: #fda4af;
+      --accent-soft: rgba(225, 29, 72, 0.22);
+      --accent-glow: rgba(225, 29, 72, 0.48);
+      --gold-accent: #fecdd3;
+      --orb-1: rgba(225, 29, 72, 0.38);
+      --orb-2: rgba(147, 51, 234, 0.28);
+    }
+
+    [data-theme="gold"] {
+      --accent: #d97706;
+      --accent-bright: #fde68a;
+      --accent-soft: rgba(217, 119, 6, 0.22);
+      --accent-glow: rgba(245, 158, 11, 0.42);
+      --gold-accent: #fef3c7;
+      --orb-1: rgba(217, 119, 6, 0.30);
+      --orb-2: rgba(147, 51, 234, 0.26);
+    }
+
+    [data-theme="emerald"] {
+      --accent: #10b981;
+      --accent-bright: #a7f3d0;
+      --accent-soft: rgba(16, 185, 129, 0.22);
+      --accent-glow: rgba(16, 185, 129, 0.42);
+      --gold-accent: #d1fae5;
+      --orb-1: rgba(16, 185, 129, 0.28);
+      --orb-2: rgba(126, 34, 206, 0.30);
+    }
+
+    [data-bg="velvet-crimson"] {
+      --bg-base: #11050e;
+      --bg-gradient: 
+        radial-gradient(circle at 18% 20%, rgba(190, 18, 60, 0.34) 0%, transparent 50%),
+        radial-gradient(circle at 84% 25%, rgba(126, 34, 206, 0.32) 0%, transparent 50%),
+        radial-gradient(circle at 50% 85%, rgba(76, 5, 25, 0.45) 0%, transparent 60%),
+        linear-gradient(135deg, #0c030a 0%, #1c081d 50%, #09030d 100%);
+    }
+
+    [data-bg="obsidian-mist"] {
+      --bg-base: #09090d;
+      --bg-gradient: 
+        radial-gradient(circle at 20% 20%, rgba(139, 92, 246, 0.18) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(88, 28, 135, 0.20) 0%, transparent 55%),
+        linear-gradient(160deg, #09090c 0%, #12101b 52%, #09090c 100%);
+    }
+
+    [data-bg="notion-flat"] {
+      --bg-base: #191919;
+      --bg-gradient: linear-gradient(180deg, #191919 0%, #191919 100%);
+      --orb-1: rgba(168, 85, 247, 0.14);
+      --orb-2: rgba(217, 70, 239, 0.09);
+      --orb-3: rgba(109, 40, 217, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-base);
+      background-image: var(--bg-gradient);
+      background-attachment: fixed;
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+      min-height: 100vh;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      overflow-x: hidden;
+      position: relative;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .ambient-canvas {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .ambient-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(72px);
+      opacity: 0.72;
+      animation: floatOrb 16s ease-in-out infinite alternate;
+    }
+
+    .orb-one {
+      width: 340px;
+      height: 340px;
+      background: var(--orb-1);
+      top: -70px;
+      left: -50px;
+    }
+
+    .orb-two {
+      width: 300px;
+      height: 300px;
+      background: var(--orb-2);
+      top: 28%;
+      right: -60px;
+      animation-delay: -5s;
+    }
+
+    .orb-three {
+      width: 380px;
+      height: 380px;
+      background: var(--orb-3);
+      bottom: -100px;
+      left: 22%;
+      animation-delay: -9s;
+    }
+
+    @keyframes floatOrb {
+      0% { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(26px, -24px) scale(1.08); }
+    }
+
+    /* Studio Control Bar */
+    .studio-bar {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: 820px;
+      background: var(--glass-surface);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border: 1px solid var(--glass-border);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45), inset 0 1px 0 var(--glass-highlight);
+      border-radius: 14px;
+      padding: 10px 14px;
+      margin-bottom: 18px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      transition: opacity 0.25s ease;
+    }
+
+    body.clean-embed .studio-bar {
+      display: none;
+    }
+
+    .brand-tag {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      font-family: var(--font-display);
+      font-size: 0.73rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+    }
+
+    .brand-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 12px var(--accent);
+    }
+
+    .studio-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .palette-group {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(10, 5, 18, 0.55);
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px solid var(--glass-border);
+    }
+
+    .palette-label {
+      font-family: var(--font-mono);
+      font-size: 0.63rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      margin-right: 2px;
+    }
+
+    .swatch {
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: transform 0.15s ease, border-color 0.15s ease;
+    }
+
+    .swatch:hover { transform: scale(1.16); }
+    .swatch.active { border-color: #ffffff; transform: scale(1.14); }
+    .swatch-amethyst { background: #a855f7; box-shadow: 0 0 8px rgba(168,85,247,0.6); }
+    .swatch-crimson { background: #e11d48; }
+    .swatch-gold { background: #d97706; }
+    .swatch-emerald { background: #10b981; }
+
+    .bg-select {
+      background: rgba(10, 5, 18, 0.65);
+      color: var(--text-secondary);
+      border: 1px solid var(--glass-border);
+      border-radius: 8px;
+      padding: 5px 8px;
+      font-family: var(--font-mono);
+      font-size: 0.66rem;
+      cursor: pointer;
+      outline: none;
+    }
+
+    .bg-select option {
+      background: #140a22;
+      color: var(--text-primary);
+    }
+
+    .btn-pill {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-secondary);
+      border: 1px solid var(--glass-border);
+      border-radius: 8px;
+      padding: 5px 10px;
+      font-family: var(--font-mono);
+      font-size: 0.66rem;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      transition: all 0.18s ease;
+    }
+
+    .btn-pill:hover, .btn-pill.active {
+      border-color: var(--accent-bright);
+      color: var(--text-primary);
+      background: var(--accent-soft);
+      box-shadow: 0 0 14px var(--accent-soft);
+    }
+
+    .dashboard-stack {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 820px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* Frosted Glass Widget Shell */
+    .widget-shell {
+      background: var(--glass-surface);
+      backdrop-filter: blur(22px) saturate(185%);
+      -webkit-backdrop-filter: blur(22px) saturate(185%);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+      padding: 22px 24px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 
+        0 20px 50px rgba(3, 1, 8, 0.65),
+        inset 0 1px 0 var(--glass-highlight),
+        inset 0 0 28px rgba(168, 85, 247, 0.05);
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+
+    .widget-shell.hidden-widget {
+      display: none;
+    }
+
+    .widget-shell::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent 5%, var(--accent-bright) 50%, transparent 95%);
+      opacity: 0.75;
+    }
+
+    /* ==========================================
+       WIDGET 1: AESTHETIC FLIP CLOCK & DATE HEADER
+       ========================================== */
+    .header-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .date-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .eyebrow-date {
+      font-family: var(--font-display);
+      font-size: 0.75rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent-bright);
+      font-weight: 600;
+      text-shadow: 0 0 12px var(--accent-glow);
+    }
+
+    .main-date-title {
+      font-family: var(--font-editorial);
+      font-size: 1.75rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      letter-spacing: 0.02em;
+      line-height: 1.1;
+    }
+
+    .sanctuary-seal {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .seal-badge {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--gold-accent);
+      background: rgba(168, 85, 247, 0.14);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--glass-border);
+      padding: 4px 10px;
+      border-radius: 999px;
+      letter-spacing: 0.08em;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
+    }
+
+    .format-toggle {
+      background: rgba(12, 6, 22, 0.45);
+      border: 1px solid var(--glass-border);
+      color: var(--text-secondary);
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      padding: 4px 8px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .format-toggle:hover {
+      color: var(--text-primary);
+      border-color: var(--accent-bright);
+    }
+
+    /* Split-Flap Frosted Cards */
+    .flip-grid {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr auto 1fr;
+      align-items: center;
+      gap: 10px;
+      margin: 12px 0 18px;
+    }
+
+    .flip-unit {
+      background: linear-gradient(180deg, var(--glass-flap-top) 0%, var(--glass-flap-top) 49.5%, rgba(8, 3, 15, 0.95) 50%, var(--glass-flap-bottom) 50.5%, var(--glass-flap-bottom) 100%);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border);
+      border-radius: 14px;
+      padding: 18px 10px 14px;
+      position: relative;
+      text-align: center;
+      box-shadow: 
+        inset 0 1px 0 rgba(255, 255, 255, 0.14),
+        0 10px 26px rgba(0, 0, 0, 0.48);
+    }
+
+    .flip-unit::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 50%;
+      height: 1px;
+      background: rgba(5, 2, 10, 0.85);
+      box-shadow: 0 1px 0 rgba(216, 180, 254, 0.08);
+      pointer-events: none;
+    }
+
+    .flip-digits {
+      font-family: var(--font-mono);
+      font-size: clamp(2.2rem, 6vw, 3.55rem);
+      font-weight: 700;
+      color: var(--text-primary);
+      letter-spacing: 0.04em;
+      line-height: 1;
+      display: inline-block;
+      text-shadow: 0 2px 16px var(--accent-glow);
+      transition: transform 0.18s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .flip-digits.pulse {
+      transform: scale(0.95);
+    }
+
+    .flip-sublabel {
+      margin-top: 8px;
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--text-secondary);
+      opacity: 0.85;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .colon-sep {
+      font-family: var(--font-mono);
+      font-size: 1.9rem;
+      color: var(--accent-bright);
+      opacity: 0.7;
+      user-select: none;
+      padding-bottom: 14px;
+      text-shadow: 0 0 12px var(--accent);
+    }
+
+    /* Interactive Whisper Strip */
+    .whisper-bar {
+      background: var(--glass-card);
+      backdrop-filter: blur(14px);
+      border: 1px solid var(--glass-border);
+      border-left: 3px solid var(--accent);
+      border-radius: 11px;
+      padding: 11px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      cursor: pointer;
+      transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .whisper-bar:hover {
+      background: var(--glass-card-hover);
+      border-color: var(--accent-bright);
+      box-shadow: 0 4px 20px rgba(168, 85, 247, 0.18);
+    }
+
+    .whisper-text {
+      font-family: var(--font-editorial);
+      font-style: italic;
+      font-size: 1.06rem;
+      color: var(--text-primary);
+      line-height: 1.35;
+    }
+
+    .whisper-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+
+    .mini-icon-btn {
+      background: rgba(12, 6, 22, 0.5);
+      border: 1px solid var(--glass-border);
+      color: var(--text-secondary);
+      border-radius: 6px;
+      padding: 4px 8px;
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .mini-icon-btn:hover {
+      color: var(--text-primary);
+      border-color: var(--accent-bright);
+      background: var(--accent-soft);
+    }
+
+    .custom-whisper-drawer {
+      display: none;
+      margin-top: 10px;
+      gap: 8px;
+    }
+
+    .custom-whisper-drawer.open {
+      display: flex;
+    }
+
+    .glass-input {
+      flex: 1;
+      background: rgba(12, 6, 22, 0.6);
+      border: 1px solid var(--glass-border);
+      border-radius: 8px;
+      padding: 8px 11px;
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+      font-size: 0.78rem;
+      outline: none;
+    }
+
+    .glass-input:focus {
+      border-color: var(--accent-bright);
+      box-shadow: 0 0 12px var(--accent-soft);
+    }
+
+    /* ==========================================
+       WIDGET 2: ENERGY & VIBE CHECK SWITCHBOARD
+       ========================================== */
+    .switchboard-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: 0.88rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-primary);
+    }
+
+    .section-subtitle {
+      font-family: var(--font-Editorial);
+      font-style: italic;
+      font-size: 0.96rem;
+      color: var(--text-secondary);
+    }
+
+    .soundtrack-pill {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--accent-bright);
+      background: var(--accent-soft);
+      border: 1px solid var(--glass-border);
+      padding: 4px 10px;
+      border-radius: 999px;
+      box-shadow: 0 0 14px var(--accent-soft);
+    }
+
+    .state-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    @media (max-width: 640px) {
+      .state-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .state-btn {
+      background: var(--glass-card);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--glass-border);
+      border-radius: 12px;
+      padding: 12px 11px;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.18s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .state-btn:hover {
+      border-color: var(--accent-bright);
+      background: var(--glass-card-hover);
+      transform: translateY(-1px);
+    }
+
+    .state-btn.active {
+      background: linear-gradient(155deg, var(--accent-soft) 0%, rgba(28, 14, 48, 0.78) 100%);
+      border-color: var(--accent-bright);
+      box-shadow: 0 0 22px var(--accent-soft), inset 0 1px 0 rgba(255, 255, 255, 0.18);
+    }
+
+    .state-icon-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+
+    .state-glyph { font-size: 1rem; }
+
+    .state-code {
+      font-family: var(--font-mono);
+      font-size: 0.58rem;
+      color: var(--text-muted);
+      letter-spacing: 0.08em;
+    }
+
+    .state-name {
+      font-family: var(--font-display);
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      letter-spacing: 0.06em;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .state-desc {
+      font-size: 0.68rem;
+      color: var(--text-secondary);
+      line-height: 1.25;
+      opacity: 0.85;
+    }
+
+    /* Protocol Prescription Output */
+    .protocol-panel {
+      background: var(--glass-card);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border);
+      border-radius: 14px;
+      padding: 16px;
+      display: grid;
+      grid-template-columns: 1.25fr 1fr;
+      gap: 16px;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    }
+
+    @media (max-width: 640px) {
+      .protocol-panel {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .directive-voice {
+      font-family: var(--font-editorial);
+      font-size: 1.08rem;
+      line-height: 1.42;
+      color: var(--text-primary);
+      margin-bottom: 12px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--glass-border);
+    }
+
+    .directive-voice strong {
+      color: var(--accent-bright);
+      font-weight: 600;
+    }
+
+    .micro-list-title {
+      font-family: var(--font-mono);
+      font-size: 0.63rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+    }
+
+    .micro-task {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 6px 8px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.15s ease;
+      font-size: 0.8rem;
+      color: var(--text-primary);
+    }
+
+    .micro-task:hover {
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .micro-task input {
+      accent-color: var(--accent);
+      cursor: pointer;
+    }
+
+    .micro-task.done span {
+      text-decoration: line-through;
+      color: var(--text-muted);
+    }
+
+    .scratchpad-box {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .scratchpad-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+
+    .scratchpad-area {
+      flex: 1;
+      min-height: 92px;
+      background: rgba(11, 5, 20, 0.52);
+      border: 1px solid var(--glass-border);
+      border-radius: 10px;
+      padding: 10px;
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+      font-size: 0.78rem;
+      line-height: 1.45;
+      resize: none;
+      outline: none;
+    }
+
+    .scratchpad-area::placeholder { color: var(--text-muted); }
+    .scratchpad-area:focus {
+      border-color: var(--accent-bright);
+      box-shadow: 0 0 14px var(--accent-soft);
+    }
+
+    /* ==========================================
+       WIDGET 3: DEEDS & DEADLINES (TO-DO LEDGER)
+       ========================================== */
+    .deeds-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+
+    .deeds-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .mercy-btn {
+      background: rgba(168, 85, 247, 0.12);
+      border: 1px solid var(--glass-border);
+      color: var(--text-secondary);
+      border-radius: 999px;
+      padding: 5px 12px;
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.06em;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .mercy-btn:hover {
+      border-color: var(--accent-bright);
+      color: var(--text-primary);
+    }
+
+    .mercy-btn.active {
+      background: var(--accent);
+      color: #ffffff;
+      border-color: var(--accent-bright);
+      box-shadow: 0 0 18px var(--accent-glow);
+    }
+
+    /* Blood-Pact Progress Bar */
+    .pact-progress-wrap {
+      background: rgba(11, 5, 20, 0.55);
+      border: 1px solid var(--glass-border);
+      border-radius: 12px;
+      padding: 10px 14px;
+      margin-bottom: 14px;
+    }
+
+    .pact-progress-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--text-secondary);
+      margin-bottom: 7px;
+    }
+
+    .pact-whisper {
+      font-family: var(--font-editorial);
+      font-style: italic;
+      font-size: 0.92rem;
+      color: var(--gold-accent);
+    }
+
+    .pact-bar-track {
+      width: 100%;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.07);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .pact-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--accent) 0%, var(--accent-bright) 100%);
+      box-shadow: 0 0 12px var(--accent);
+      border-radius: 999px;
+      transition: width 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    /* Add New Deed Bar */
+    .deed-composer {
+      display: grid;
+      grid-template-columns: 1fr auto auto auto auto;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    @media (max-width: 680px) {
+      .deed-composer {
+        grid-template-columns: 1fr 1fr;
+      }
+      .deed-composer .glass-input-main {
+        grid-column: 1 / -1;
+      }
+    }
+
+    .deed-select, .deed-due-input {
+      background: rgba(12, 6, 22, 0.6);
+      border: 1px solid var(--glass-border);
+      color: var(--text-secondary);
+      border-radius: 8px;
+      padding: 7px 9px;
+      font-family: var(--font-mono);
+      font-size: 0.66rem;
+      outline: none;
+    }
+
+    .deed-select option {
+      background: #140a22;
+      color: var(--text-primary);
+    }
+
+    .deed-due-input { width: 105px; }
+    .deed-due-input::placeholder { color: var(--text-muted); }
+
+    /* Realm Filter Pills */
+    .realm-tabs {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--glass-border);
+    }
+
+    .realm-pill-group {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .realm-tab {
+      background: rgba(12, 6, 22, 0.45);
+      border: 1px solid var(--glass-border);
+      color: var(--text-secondary);
+      border-radius: 8px;
+      padding: 4px 10px;
+      font-family: var(--font-mono);
+      font-size: 0.63rem;
+      cursor: pointer;
+      transition: all 0.16s ease;
+    }
+
+    .realm-tab:hover, .realm-tab.active {
+      background: var(--accent-soft);
+      color: var(--text-primary);
+      border-color: var(--accent-bright);
+    }
+
+    /* Locked Focus Spotlight Banner */
+    .sole-target-banner {
+      display: none;
+      background: linear-gradient(135deg, rgba(168, 85, 247, 0.24) 0%, rgba(28, 12, 48, 0.78) 100%);
+      border: 1px solid var(--accent-bright);
+      border-radius: 12px;
+      padding: 11px 14px;
+      margin-bottom: 12px;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      box-shadow: 0 0 22px var(--accent-soft);
+    }
+
+    .sole-target-banner.active { display: flex; }
+
+    .sole-target-label {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--accent-bright);
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .sole-target-title {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    /* Deeds List Items */
+    .deeds-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .deed-row {
+      background: var(--glass-card);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--glass-border);
+      border-radius: 11px;
+      padding: 10px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      transition: all 0.18s ease;
+    }
+
+    .deed-row:hover {
+      background: var(--glass-card-hover);
+      border-color: rgba(216, 180, 254, 0.35);
+      transform: translateX(2px);
+    }
+
+    .deed-row.completed { opacity: 0.52; }
+    .deed-row.completed .deed-title {
+      text-decoration: line-through;
+      color: var(--text-muted);
+    }
+
+    .deed-left {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .sigil-check {
+      width: 18px;
+      height: 18px;
+      border-radius: 5px;
+      border: 1.5px solid var(--accent-bright);
+      background: rgba(12, 6, 22, 0.6);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: all 0.16s ease;
+      color: transparent;
+      font-size: 0.7rem;
+    }
+
+    .deed-row.completed .sigil-check {
+      background: var(--accent);
+      border-color: var(--accent-bright);
+      color: #ffffff;
+      box-shadow: 0 0 10px var(--accent);
+    }
+
+    .deed-title {
+      font-size: 0.83rem;
+      color: var(--text-primary);
+      line-height: 1.35;
+      word-break: break-word;
+      cursor: pointer;
+    }
+
+    .deed-right {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      flex-shrink: 0;
+      flex-wrap: wrap;
+    }
+
+    .realm-badge {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      padding: 3px 7px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--glass-border);
+      color: var(--text-secondary);
+    }
+
+    .stake-badge {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      padding: 3px 8px;
+      border-radius: 999px;
+      letter-spacing: 0.04em;
+      font-weight: 500;
+    }
+
+    .stake-lethal {
+      background: rgba(244, 63, 94, 0.18);
+      color: #fda4af;
+      border: 1px solid rgba(244, 63, 94, 0.45);
+      box-shadow: 0 0 10px rgba(244, 63, 94, 0.2);
+    }
+
+    .stake-looming {
+      background: rgba(245, 158, 11, 0.16);
+      color: #fde68a;
+      border: 1px solid rgba(245, 158, 11, 0.4);
+    }
+
+    .stake-drifting {
+      background: rgba(168, 85, 247, 0.16);
+      color: #d8b4fe;
+      border: 1px solid rgba(168, 85, 247, 0.38);
+    }
+
+    .due-tag {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      color: var(--gold-accent);
+      opacity: 0.9;
+    }
+
+    .row-icon-btn {
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--text-muted);
+      border-radius: 6px;
+      padding: 3px 6px;
+      font-size: 0.72rem;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .row-icon-btn:hover {
+      color: var(--text-primary);
+      border-color: var(--glass-border);
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .empty-deeds {
+      text-align: center;
+      padding: 22px 12px;
+      font-family: var(--font-editorial);
+      font-style: italic;
+      font-size: 1.02rem;
+      color: var(--text-secondary);
+      border: 1px dashed var(--glass-border);
+      border-radius: 12px;
+    }
+
+    .widget-footer {
+      margin-top: 14px;
+      padding-top: 10px;
+      border-top: 1px solid var(--glass-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--font-mono);
+      font-size: 0.64rem;
+      color: var(--text-secondary);
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    /* Floating hover gear when in Clean Embed mode */
+    .floating-exit-clean {
+      position: fixed;
+      bottom: 10px;
+      right: 12px;
+      z-index: 20;
+      background: var(--glass-surface);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--glass-border);
+      color: var(--text-secondary);
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      padding: 5px 10px;
+      border-radius: 999px;
+      cursor: pointer;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+
+    body.clean-embed:hover .floating-exit-clean {
+      opacity: 0.88;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Floating Ambient Orbs Behind Glass -->
+  <div class="ambient-canvas" aria-hidden="true">
+    <div class="ambient-orb orb-one"></div>
+    <div class="ambient-orb orb-two"></div>
+    <div class="ambient-orb orb-three"></div>
+  </div>
+
+  <!-- Studio Control Bar -->
+  <div class="studio-bar">
+    <div class="brand-tag">
+      <span class="brand-dot"></span>
+      <span>Sanctuary Studio // Royal Amethyst Glass</span>
+    </div>
+
+    <div class="studio-controls">
+      <div class="palette-group" title="Accent Aura">
+        <span class="palette-label">Aura</span>
+        <button class="swatch swatch-amethyst active" data-set-theme="amethyst" title="Royal Amethyst"></button>
+        <button class="swatch swatch-crimson" data-set-theme="crimson" title="Blood Crimson"></button>
+        <button class="swatch swatch-gold" data-set-theme="gold" title="Antique Gold"></button>
+        <button class="swatch swatch-emerald" data-set-theme="emerald" title="Midnight Emerald"></button>
+      </div>
+
+      <select class="bg-select" id="bgModeSelect" title="Background Gradient">
+        <option value="purple-mesh">BG: Abyssal Purple</option>
+        <option value="velvet-crimson">BG: Velvet Violet-Red</option>
+        <option value="obsidian-mist">BG: Obsidian Mist</option>
+        <option value="notion-flat">BG: Notion #191919</option>
+      </select>
+
+      <select class="bg-select" id="widgetFilterSelect" title="Isolate Widget View">
+        <option value="all">Show: All 3 Widgets</option>
+        <option value="clock">Only: Flip Clock</option>
+        <option value="vibe">Only: Vibe Switchboard</option>
+        <option value="deeds">Only: Deeds & Deadlines</option>
+      </select>
+
+      <button class="btn-pill" id="cleanEmbedBtn">Clean Embed</button>
+    </div>
+  </div>
+
+  <div class="dashboard-stack">
+
+    <!-- =======================================================
+         WIDGET 01: AESTHETIC FLIP CLOCK & DATE HEADER
+         ======================================================= -->
+    <section class="widget-shell" id="widgetClock">
+      <div class="header-meta">
+        <div class="date-stack">
+          <span class="eyebrow-date" id="weekdayLabel">FRIDAY // SANCTUARY TIME</span>
+          <h1 class="main-date-title" id="fullDateLabel">October 30, 2026</h1>
+        </div>
+
+        <div class="sanctuary-seal">
+          <span class="seal-badge" title="Someday, somewhere... Always.">✦ 32 · ALWAYS</span>
+          <button class="format-toggle" id="formatToggleBtn">12H</button>
+        </div>
+      </div>
+
+      <div class="flip-grid" aria-label="Live Flip Clock">
+        <div class="flip-unit">
+          <span class="flip-digits" id="hourDigits">08</span>
+          <div class="flip-sublabel">
+            <span>Hours</span>
+            <span id="ampmBadge" style="color: var(--accent-bright); font-weight: 700;">PM</span>
+          </div>
+        </div>
+
+        <div class="colon-sep">:</div>
+
+        <div class="flip-unit">
+          <span class="flip-digits" id="minDigits">00</span>
+          <div class="flip-sublabel">Minutes</div>
+        </div>
+
+        <div class="colon-sep">:</div>
+
+        <div class="flip-unit">
+          <span class="flip-digits" id="secDigits">00</span>
+          <div class="flip-sublabel">Seconds</div>
+        </div>
+      </div>
+
+      <div class="whisper-bar" id="whisperBar" title="Click to cycle whisper">
+        <p class="whisper-text" id="whisperText">
+          "Breathe, Malishka. You survived the storm; the pages in front of you are yours to command."
+        </p>
+        <div class="whisper-actions">
+          <button class="mini-icon-btn" id="nextWhisperBtn" type="button">↻ Next</button>
+          <button class="mini-icon-btn" id="addWhisperToggleBtn" type="button">+ Custom</button>
+        </div>
+      </div>
+
+      <div class="custom-whisper-drawer" id="customWhisperDrawer">
+        <input type="text" class="glass-input" id="customWhisperInput" placeholder="Write a dark quote, book line, or reminder for yourself, Naza..." />
+        <button class="btn-pill" id="saveWhisperBtn" type="button">Save Line</button>
+      </div>
+    </section>
+
+    <!-- =======================================================
+         WIDGET 02: ENERGY & VIBE CHECK SWITCHBOARD
+         ======================================================= -->
+    <section class="widget-shell" id="widgetVibe">
+      <div class="switchboard-top">
+        <div>
+          <h2 class="section-title">Energy & Vibe Switchboard</h2>
+          <p class="section-subtitle">Match your tasks to your nervous system, babygirl—never guilt-trip the void.</p>
+        </div>
+        <span class="soundtrack-pill" id="vibeSoundtrack">♪ Vibe: Sleep Token — The Summoning</span>
+      </div>
+
+      <div class="state-grid" role="tablist">
+        <button class="state-btn active" data-state="sharp" type="button">
+          <div class="state-icon-row">
+            <span class="state-glyph">🗡️</span>
+            <span class="state-code">LVL 01</span>
+          </div>
+          <span class="state-name">Sharp & Lethal</span>
+          <span class="state-desc">Mind is wicked, hyper-focused & ready to bleed ink.</span>
+        </button>
+
+        <button class="state-btn" data-state="drifting" type="button">
+          <div class="state-icon-row">
+            <span class="state-glyph">🌙</span>
+            <span class="state-code">LVL 02</span>
+          </div>
+          <span class="state-name">Drifting & Chaotic</span>
+          <span class="state-desc">Daydreaming, 40 tabs open in your head, allergic to boring rules.</span>
+        </button>
+
+        <button class="state-btn" data-state="fried" type="button">
+          <div class="state-icon-row">
+            <span class="state-glyph">🕯️</span>
+            <span class="state-code">LVL 03</span>
+          </div>
+          <span class="state-name">Fried & Overdone</span>
+          <span class="state-desc">Work burnout hitting hard. Low battery, zero patience.</span>
+        </button>
+
+        <button class="state-btn" data-state="void" type="button">
+          <div class="state-icon-row">
+            <span class="state-glyph">🖤</span>
+            <span class="state-code">LVL 04</span>
+          </div>
+          <span class="state-name">In the Void</span>
+          <span class="state-desc">Numb, disconnected, heavy chest. Survival mode only.</span>
+        </button>
+      </div>
+
+      <div class="protocol-panel">
+        <div>
+          <p class="directive-voice" id="directiveVoice"></p>
+          <div class="micro-list-title">Prescribed Micro-Targets (Click to cross off)</div>
+          <div id="microTaskList"></div>
+        </div>
+
+        <div class="scratchpad-box">
+          <div class="scratchpad-header">
+            <span class="micro-list-title" style="margin-bottom:0;">Quick Brain-Dump / Scene Fragments</span>
+            <button class="mini-icon-btn" id="clearNotesBtn" type="button">Clear</button>
+          </div>
+          <textarea class="scratchpad-area" id="scratchpadArea" placeholder="Trap stray dialogue, monologue lines, or intrusive to-dos here so your head stays clear..."></textarea>
+        </div>
+      </div>
+
+      <div class="widget-footer">
+        <span>STATUS: <strong id="footerStateLabel" style="color: var(--accent-bright);">SHARP & LETHAL</strong></span>
+        <button class="mini-icon-btn" id="hydrationBtn" type="button">💧 Unclench Jaw & Sip Water (0)</button>
+      </div>
+    </section>
+
+    <!-- =======================================================
+         WIDGET 03: DEEDS & DEADLINES (TO-DO LEDGER)
+         ======================================================= -->
+    <section class="widget-shell" id="widgetDeeds">
+      <div class="deeds-header">
+        <div>
+          <h2 class="section-title">Deeds & Deadlines</h2>
+          <p class="section-subtitle">Blood contracts, creative hits, and mortal obligations.</p>
+        </div>
+
+        <div class="deeds-controls">
+          <button class="mercy-btn" id="mercyProtocolBtn" type="button" title="Hides everything except your top 3 urgent deeds so you don't spiral">
+            <span>⚡ Mercy Protocol (Top 3 Only)</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Blood-Pact Completion Bar -->
+      <div class="pact-progress-wrap">
+        <div class="pact-progress-meta">
+          <span id="pactCounterText">0 / 0 DEEDS EXECUTED</span>
+          <span class="pact-whisper" id="pactWhisperText">"Pick one target, Malishka. Leave the rest in the dark."</span>
+        </div>
+        <div class="pact-bar-track">
+          <div class="pact-bar-fill" id="pactBarFill"></div>
+        </div>
+      </div>
+
+      <!-- Task Composer -->
+      <form class="deed-composer" id="deedForm">
+        <input type="text" class="glass-input glass-input-main" id="deedTitleInput" placeholder="Inscribe a new deed or deadline, Naza..." required />
+        
+        <select class="deed-select" id="deedRealmInput" title="Realm">
+          <option value="Manuscript">✒️ Manuscript</option>
+          <option value="Al-Manara">🏛️ Al-Manara</option>
+          <option value="ARC & Reads">🥀 ARC & Reads</option>
+          <option value="Sanctuary">🕯️ Sanctuary</option>
+        </select>
+
+        <select class="deed-select" id="deedStakeInput" title="Stakes">
+          <option value="lethal">🔥 Lethal</option>
+          <option value="looming" selected>⏳ Looming</option>
+          <option value="drifting">🌙 Drifting</option>
+        </select>
+
+        <input type="text" class="deed-due-input" id="deedDueInput" placeholder="Due (e.g. Fri)" />
+
+        <button class="btn-pill" type="submit" style="padding: 7px 14px; font-weight: 600;">+ Bind</button>
+      </form>
+
+      <!-- Realm Filter Tabs -->
+      <div class="realm-tabs">
+        <div class="realm-pill-group" id="realmFilterGroup">
+          <button class="realm-tab active" data-realm="all" type="button">All Realms</button>
+          <button class="realm-tab" data-realm="Manuscript" type="button">✒️ Manuscript</button>
+          <button class="realm-tab" data-realm="Al-Manara" type="button">🏛️ Al-Manara</button>
+          <button class="realm-tab" data-realm="ARC & Reads" type="button">🥀 ARC & Reads</button>
+          <button class="realm-tab" data-realm="Sanctuary" type="button">🕯️ Sanctuary</button>
+        </div>
+
+        <button class="mini-icon-btn" id="purgeCompletedBtn" type="button">Purge Slain Deeds</button>
+      </div>
+
+      <!-- Sole Target Lock Banner -->
+      <div class="sole-target-banner" id="soleTargetBanner">
+        <div>
+          <span class="sole-target-label">🎯 SOLE TARGET LOCKED // NO DISTRACTIONS</span>
+          <span class="sole-target-title" id="soleTargetText"></span>
+        </div>
+        <button class="mini-icon-btn" id="releaseTargetBtn" type="button">Release Lock</button>
+      </div>
+
+      <!-- Deeds List Container -->
+      <div class="deeds-list" id="deedsListContainer"></div>
+
+      <div class="widget-footer">
+        <span id="deedsFooterSummary">0 LETHAL STAKES REMAINING</span>
+        <span>CLICK 🎯 ON ANY DEED TO LOCK FOCUS</span>
+      </div>
+    </section>
+
+  </div>
+
+  <button class="floating-exit-clean" id="exitCleanBtn">⚙ Customize Sanctuary</button>
+
+  <script>
+    (function () {
+      const STORAGE_KEY = 'malishka_notion_sanctuary_v3';
+
+      const defaultWhispers = [
+        "Breathe, Malishka. You survived the storm; the pages in front of you are yours to command.",
+        "Someday, somewhere... Always. You are never crazy—you were surviving. Now you build.",
+        "Stop staring at the whole mountain, Naza. Give me fifteen wicked minutes on one scene.",
+        "Unclench your jaw, drop your shoulders, babygirl. Even dark queens need water and air.",
+        "Da, the burnout is real—so stop forcing corporate rules on a creative mind built for chaos.",
+        "32. You walked through the fire and kept your voice intact. Write like you own the dark."
+      ];
+
+      const defaultDeeds = [
+        {
+          id: 'd1',
+          title: 'Draft 500 raw, unfiltered words for TGWPITS scene',
+          realm: 'Manuscript',
+          stake: 'lethal',
+          due: 'Tonight',
+          done: false
+        },
+        {
+          id: 'd2',
+          title: 'Review bilingual executive CV & Canva header layout',
+          realm: 'Al-Manara',
+          stake: 'looming',
+          due: 'Tomorrow',
+          done: false
+        },
+        {
+          id: 'd3',
+          title: 'Post Goodreads ARC review & check BookFunnel queue',
+          realm: 'ARC & Reads',
+          stake: 'drifting',
+          due: 'This Week',
+          done: false
+        },
+        {
+          id: 'd4',
+          title: 'Put on Sleep Token, light a candle & step away from work tabs',
+          realm: 'Sanctuary',
+          stake: 'looming',
+          due: '9:00 PM',
+          done: true
+        }
+      ];
+
+      const vibeProtocols = {
+        sharp: {
+          label: 'SHARP & LETHAL',
+          soundtrack: '♪ Vibe: Sleep Token — The Summoning',
+          directive: 'Look at you, <strong>Malishka</strong>—eyes sharp and brain on fire. Don\'t waste this electric streak on inbox admin or tiny chores. Open the manuscript or your hardest creative project right now and let that wicked tongue do damage.',
+          tasks: [
+            'Sprint 400+ raw words on your dark romance draft without backspacing',
+            'Tackle the single most complex creative or linguistics deliverable',
+            'Lock the door on distractions for a 25-minute deep-focus block'
+          ]
+        },
+        drifting: {
+          label: 'DRIFTING & CHAOTIC',
+          soundtrack: '♪ Vibe: Bad Omens — THE DEATH OF PEACE OF MIND',
+          directive: 'Your ADHD mind is bouncing off the walls, <strong>Naza</strong>. Stop fighting the chaos and use it. No rigid outlines right now—follow the dopamine, play with aesthetics, or daydream a twisted character monologue.',
+          tasks: [
+            'Brain-dump messy dialogue or scene fragments into the scratchpad',
+            'Tweak Canva layouts, moodboards, or character aesthetics for 15 mins',
+            'Read 2 chapters of an ARC or dark romance novel to spark inspiration'
+          ]
+        },
+        fried: {
+          label: 'FRIED & OVERDONE',
+          soundtrack: '♪ Vibe: Sleep Token — Aqua Regia (Slowed)',
+          directive: 'Hey—hands off the heavy work, <strong>babygirl</strong>. Work burnout is barking at you, and pushing harder will only drain your ink dry. Do the bare minimum on autopilot, then shut the laptop.',
+          tasks: [
+            'Clear 1 brainless 5-minute task just to get the weight off your chest',
+            'Close every work tab you do not need before tomorrow morning',
+            'Step away from the desk, stretch your back, and put on comfort audio'
+          ]
+        },
+        void: {
+          label: 'IN THE VOID',
+          soundtrack: '♪ Vibe: Ambient Rain & Low Frequencies',
+          directive: 'Come here, <strong>Gigi</strong>. Listen to me: feeling numb or empty after everything you\'ve carried doesn\'t mean you\'re broken—it means your armor is heavy. Zero expectations right now. I\'ve got you. Always.',
+          tasks: [
+            'Drink a full glass of water and eat something warm',
+            'Wrap up in a blanket and listen to a favorite song with eyes closed',
+            'Write one honest sentence about how you feel—or nothing at all'
+          ]
+        }
+      };
+
+      let state = {
+        theme: 'amethyst',
+        bgMode: 'purple-mesh',
+        widgetFilter: 'all',
+        use24Hour: false,
+        cleanEmbed: false,
+        whisperIndex: 0,
+        customWhispers: [],
+        activeVibe: 'sharp',
+        checkedTasks: {},
+        scratchpad: '',
+        hydrationCount: 0,
+        deeds: defaultDeeds,
+        activeRealmFilter: 'all',
+        mercyProtocol: false,
+        lockedDeedId: null
+      };
+
+      try {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          state = Object.assign({}, state, parsed);
+          if (!Array.isArray(state.deeds)) state.deeds = defaultDeeds;
+        }
+      } catch (e) {}
+
+      // Support URL query parameters for Notion embeds (e.g., ?view=clock&clean=1)
+      const params = new URLSearchParams(window.location.search);
+      if (params.get('view')) state.widgetFilter = params.get('view');
+      if (params.get('clean') === '1') state.cleanEmbed = true;
+
+      function saveState() {
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+        } catch (e) {}
+      }
+
+      // 1. Theme, Background & Widget Filter
+      const swatches = document.querySelectorAll('.swatch');
+      const bgModeSelect = document.getElementById('bgModeSelect');
+      const widgetFilterSelect = document.getElementById('widgetFilterSelect');
+
+      function applyVisualSettings() {
+        document.documentElement.setAttribute('data-theme', state.theme);
+        document.documentElement.setAttribute('data-bg', state.bgMode);
+        swatches.forEach(s => {
+          s.classList.toggle('active', s.getAttribute('data-set-theme') === state.theme);
+        });
+        bgModeSelect.value = state.bgMode;
+        widgetFilterSelect.value = state.widgetFilter;
+
+        document.getElementById('widgetClock').classList.toggle('hidden-widget', state.widgetFilter !== 'all' && state.widgetFilter !== 'clock');
+        document.getElementById('widgetVibe').classList.toggle('hidden-widget', state.widgetFilter !== 'all' && state.widgetFilter !== 'vibe');
+        document.getElementById('widgetDeeds').classList.toggle('hidden-widget', state.widgetFilter !== 'all' && state.widgetFilter !== 'deeds');
+      }
+
+      swatches.forEach(btn => {
+        btn.addEventListener('click', () => {
+          state.theme = btn.getAttribute('data-set-theme');
+          applyVisualSettings();
+          saveState();
+        });
+      });
+
+      bgModeSelect.addEventListener('change', (e) => {
+        state.bgMode = e.target.value;
+        applyVisualSettings();
+        saveState();
+      });
+
+      widgetFilterSelect.addEventListener('change', (e) => {
+        state.widgetFilter = e.target.value;
+        applyVisualSettings();
+        saveState();
+      });
+
+      // Clean Embed Mode
+      const cleanEmbedBtn = document.getElementById('cleanEmbedBtn');
+      const exitCleanBtn = document.getElementById('exitCleanBtn');
+
+      function applyCleanMode() {
+        document.body.classList.toggle('clean-embed', state.cleanEmbed);
+      }
+
+      cleanEmbedBtn.addEventListener('click', () => {
+        state.cleanEmbed = true;
+        applyCleanMode();
+        saveState();
+      });
+
+      exitCleanBtn.addEventListener('click', () => {
+        state.cleanEmbed = false;
+        applyCleanMode();
+        saveState();
+      });
+
+      // 2. Flip Clock
+      const hourEl = document.getElementById('hourDigits');
+      const minEl = document.getElementById('minDigits');
+      const secEl = document.getElementById('secDigits');
+      const ampmEl = document.getElementById('ampmBadge');
+      const weekdayEl = document.getElementById('weekdayLabel');
+      const fullDateEl = document.getElementById('fullDateLabel');
+      const formatToggleBtn = document.getElementById('formatToggleBtn');
+
+      let lastSec = '';
+
+      function updateClock() {
+        const now = new Date();
+        const days = ['SUNDAY', 'MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY'];
+        const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+        weekdayEl.textContent = `${days[now.getDay()]} // SANCTUARY TIME`;
+        fullDateEl.textContent = `${months[now.getMonth()]} ${now.getDate()}, ${now.getFullYear()}`;
+
+        let hours = now.getHours();
+        const ampm = hours >= 12 ? 'PM' : 'AM';
+
+        if (!state.use24Hour) {
+          hours = hours % 12 || 12;
+          ampmEl.textContent = ampm;
+          ampmEl.style.display = 'inline';
+          formatToggleBtn.textContent = '12H';
+        } else {
+          ampmEl.style.display = 'none';
+          formatToggleBtn.textContent = '24H';
+        }
+
+        const hStr = String(hours).padStart(2, '0');
+        const mStr = String(now.getMinutes()).padStart(2, '0');
+        const sStr = String(now.getSeconds()).padStart(2, '0');
+
+        hourEl.textContent = hStr;
+        minEl.textContent = mStr;
+
+        if (sStr !== lastSec) {
+          secEl.classList.add('pulse');
+          secEl.textContent = sStr;
+          setTimeout(() => secEl.classList.remove('pulse'), 140);
+          lastSec = sStr;
+        }
+      }
+
+      formatToggleBtn.addEventListener('click', () => {
+        state.use24Hour = !state.use24Hour;
+        updateClock();
+        saveState();
+      });
+
+      // 3. Whispers
+      const whisperTextEl = document.getElementById('whisperText');
+      const nextWhisperBtn = document.getElementById('nextWhisperBtn');
+      const addWhisperToggleBtn = document.getElementById('addWhisperToggleBtn');
+      const customWhisperDrawer = document.getElementById('customWhisperDrawer');
+      const customWhisperInput = document.getElementById('customWhisperInput');
+      const saveWhisperBtn = document.getElementById('saveWhisperBtn');
+
+      function getAllWhispers() {
+        return defaultWhispers.concat(state.customWhispers || []);
+      }
+
+      function renderWhisper() {
+        const list = getAllWhispers();
+        const idx = state.whisperIndex % list.length;
+        whisperTextEl.textContent = `"${list[idx]}"`;
+      }
+
+      function cycleWhisper(e) {
+        if (e) e.stopPropagation();
+        const list = getAllWhispers();
+        state.whisperIndex = (state.whisperIndex + 1) % list.length;
+        renderWhisper();
+        saveState();
+      }
+
+      document.getElementById('whisperBar').addEventListener('click', cycleWhisper);
+      nextWhisperBtn.addEventListener('click', cycleWhisper);
+
+      addWhisperToggleBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        customWhisperDrawer.classList.toggle('open');
+        if (customWhisperDrawer.classList.contains('open')) customWhisperInput.focus();
+      });
+
+      saveWhisperBtn.addEventListener('click', () => {
+        const val = customWhisperInput.value.trim();
+        if (!val) return;
+        state.customWhispers.push(val);
+        state.whisperIndex = getAllWhispers().length - 1;
+        customWhisperInput.value = '';
+        customWhisperDrawer.classList.remove('open');
+        renderWhisper();
+        saveState();
+      });
+
+      // 4. Energy & Vibe Switchboard
+      const stateBtns = document.querySelectorAll('.state-btn');
+      const directiveVoiceEl = document.getElementById('directiveVoice');
+      const microTaskListEl = document.getElementById('microTaskList');
+      const vibeSoundtrackEl = document.getElementById('vibeSoundtrack');
+      const footerStateLabelEl = document.getElementById('footerStateLabel');
+      const scratchpadArea = document.getElementById('scratchpadArea');
+      const clearNotesBtn = document.getElementById('clearNotesBtn');
+      const hydrationBtn = document.getElementById('hydrationBtn');
+
+      function renderVibeState() {
+        const currentKey = state.activeVibe || 'sharp';
+        const data = vibeProtocols[currentKey] || vibeProtocols.sharp;
+
+        stateBtns.forEach(btn => {
+          btn.classList.toggle('active', btn.getAttribute('data-state') === currentKey);
+        });
+
+        directiveVoiceEl.innerHTML = data.directive;
+        vibeSoundtrackEl.textContent = data.soundtrack;
+        footerStateLabelEl.textContent = data.label;
+
+        microTaskListEl.innerHTML = '';
+        data.tasks.forEach((taskText, index) => {
+          const checkId = `${currentKey}_${index}`;
+          const isDone = !!state.checkedTasks[checkId];
+
+          const row = document.createElement('label');
+          row.className = 'micro-task' + (isDone ? ' done' : '');
+
+          const checkbox = document.createElement('input');
+          checkbox.type = 'checkbox';
+          checkbox.checked = isDone;
+          checkbox.addEventListener('change', () => {
+            state.checkedTasks[checkId] = checkbox.checked;
+            renderVibeState();
+            saveState();
+          });
+
+          const span = document.createElement('span');
+          span.textContent = taskText;
+
+          row.appendChild(checkbox);
+          row.appendChild(span);
+          microTaskListEl.appendChild(row);
+        });
+      }
+
+      stateBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          state.activeVibe = btn.getAttribute('data-state');
+          renderVibeState();
+          saveState();
+        });
+      });
+
+      scratchpadArea.value = state.scratchpad || '';
+      scratchpadArea.addEventListener('input', () => {
+        state.scratchpad = scratchpadArea.value;
+        saveState();
+      });
+
+      clearNotesBtn.addEventListener('click', () => {
+        state.scratchpad = '';
+        scratchpadArea.value = '';
+        saveState();
+      });
+
+      function renderHydration() {
+        hydrationBtn.textContent = `💧 Unclench Jaw & Sip Water (${state.hydrationCount || 0})`;
+      }
+
+      hydrationBtn.addEventListener('click', () => {
+        state.hydrationCount = (state.hydrationCount || 0) + 1;
+        renderHydration();
+        saveState();
+      });
+
+      // 5. Deeds & Deadlines (To-Do Ledger)
+      const deedForm = document.getElementById('deedForm');
+      const deedTitleInput = document.getElementById('deedTitleInput');
+      const deedRealmInput = document.getElementById('deedRealmInput');
+      const deedStakeInput = document.getElementById('deedStakeInput');
+      const deedDueInput = document.getElementById('deedDueInput');
+      const deedsListContainer = document.getElementById('deedsListContainer');
+      const pactCounterText = document.getElementById('pactCounterText');
+      const pactWhisperText = document.getElementById('pactWhisperText');
+      const pactBarFill = document.getElementById('pactBarFill');
+      const deedsFooterSummary = document.getElementById('deedsFooterSummary');
+      const mercyProtocolBtn = document.getElementById('mercyProtocolBtn');
+      const purgeCompletedBtn = document.getElementById('purgeCompletedBtn');
+      const realmTabs = document.querySelectorAll('.realm-tab');
+      const soleTargetBanner = document.getElementById('soleTargetBanner');
+      const soleTargetText = document.getElementById('soleTargetText');
+      const releaseTargetBtn = document.getElementById('releaseTargetBtn');
+
+      const stakeWeight = { lethal: 1, looming: 2, drifting: 3 };
+      const stakeLabels = { lethal: '🔥 Lethal', looming: '⏳ Looming', drifting: '🌙 Drifting' };
+
+      function getPactEncouragement(percent, total) {
+        if (total === 0) return '"The ledger is clean, Malishka. Rest or plot your next obsession."';
+        if (percent === 0) return '"Pick one target, Malishka. Leave the rest in the dark."';
+        if (percent < 50) return '"First blood drawn. Keep that sharp momentum going, babygirl."';
+        if (percent < 100) return '"Over halfway through the ledger. Look how lethal you are when focused."';
+        return '"Every contract fulfilled. Step away from the desk—you earned your peace, Naza."';
+      }
+
+      function renderDeeds() {
+        const allDeeds = state.deeds || [];
+        const doneCount = allDeeds.filter(d => d.done).length;
+        const totalCount = allDeeds.length;
+        const pct = totalCount > 0 ? Math.round((doneCount / totalCount) * 100) : 0;
+
+        pactCounterText.textContent = `${doneCount} / ${totalCount} DEEDS EXECUTED (${pct}%)`;
+        pactBarFill.style.width = `${pct}%`;
+        pactWhisperText.textContent = getPactEncouragement(pct, totalCount);
+
+        const lethalLeft = allDeeds.filter(d => !d.done && d.stake === 'lethal').length;
+        deedsFooterSummary.textContent = `${lethalLeft} LETHAL ${lethalLeft === 1 ? 'STAKE' : 'STAKES'} REMAINING`;
+
+        mercyProtocolBtn.classList.toggle('active', !!state.mercyProtocol);
+
+        realmTabs.forEach(t => {
+          t.classList.toggle('active', t.getAttribute('data-realm') === state.activeRealmFilter);
+        });
+
+        const lockedItem = allDeeds.find(d => d.id === state.lockedDeedId && !d.done);
+        if (lockedItem) {
+          soleTargetBanner.classList.add('active');
+          soleTargetText.textContent = `${lockedItem.title} [${lockedItem.realm}]`;
+        } else {
+          soleTargetBanner.classList.remove('active');
+          state.lockedDeedId = null;
+        }
+
+        let visible = allDeeds.filter(d => {
+          if (state.activeRealmFilter !== 'all' && d.realm !== state.activeRealmFilter) return false;
+          return true;
+        });
+
+        visible.sort((a, b) => {
+          if (a.done !== b.done) return a.done ? 1 : -1;
+          return (stakeWeight[a.stake] || 2) - (stakeWeight[b.stake] || 2);
+        });
+
+        if (state.mercyProtocol) {
+          visible = visible.filter(d => !d.done).slice(0, 3);
+        }
+
+        deedsListContainer.innerHTML = '';
+
+        if (visible.length === 0) {
+          const empty = document.createElement('div');
+          empty.className = 'empty-deeds';
+          empty.textContent = state.mercyProtocol
+            ? 'No active deeds left under Mercy Protocol. Breathe easy, babygirl.'
+            : 'No deeds bound in this realm yet. Inscribe one above.';
+          deedsListContainer.appendChild(empty);
+          return;
+        }
+
+        visible.forEach(deed => {
+          const row = document.createElement('div');
+          row.className = 'deed-row' + (deed.done ? ' completed' : '');
+
+          const left = document.createElement('div');
+          left.className = 'deed-left';
+
+          const check = document.createElement('button');
+          check.type = 'button';
+          check.className = 'sigil-check';
+          check.innerHTML = '✦';
+          check.title = 'Mark Executed';
+          check.addEventListener('click', () => {
+            deed.done = !deed.done;
+            renderDeeds();
+            saveState();
+          });
+
+          const title = document.createElement('span');
+          title.className = 'deed-title';
+          title.textContent = deed.title;
+          title.addEventListener('click', () => {
+            deed.done = !deed.done;
+            renderDeeds();
+            saveState();
+          });
+
+          left.appendChild(check);
+          left.appendChild(title);
+
+          const right = document.createElement('div');
+          right.className = 'deed-right';
+
+          if (deed.due) {
+            const due = document.createElement('span');
+            due.className = 'due-tag';
+            due.textContent = `⏳ ${deed.due}`;
+            right.appendChild(due);
+          }
+
+          const realmBadge = document.createElement('span');
+          realmBadge.className = 'realm-badge';
+          realmBadge.textContent = deed.realm;
+          right.appendChild(realmBadge);
+
+          const stakeBadge = document.createElement('span');
+          stakeBadge.className = `stake-badge stake-${deed.stake}`;
+          stakeBadge.textContent = stakeLabels[deed.stake] || '⏳ Looming';
+          right.appendChild(stakeBadge);
+
+          if (!deed.done) {
+            const lockBtn = document.createElement('button');
+            lockBtn.type = 'button';
+            lockBtn.className = 'row-icon-btn';
+            lockBtn.textContent = '🎯';
+            lockBtn.title = 'Lock as Sole Target';
+            lockBtn.addEventListener('click', () => {
+              state.lockedDeedId = state.lockedDeedId === deed.id ? null : deed.id;
+              renderDeeds();
+              saveState();
+            });
+            right.appendChild(lockBtn);
+          }
+
+          const delBtn = document.createElement('button');
+          delBtn.type = 'button';
+          delBtn.className = 'row-icon-btn';
+          delBtn.textContent = '✕';
+          delBtn.title = 'Remove Deed';
+          delBtn.addEventListener('click', () => {
+            state.deeds = state.deeds.filter(d => d.id !== deed.id);
+            renderDeeds();
+            saveState();
+          });
+          right.appendChild(delBtn);
+
+          row.appendChild(left);
+          row.appendChild(right);
+          deedsListContainer.appendChild(row);
+        });
+      }
+
+      deedForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const titleVal = deedTitleInput.value.trim();
+        if (!titleVal) return;
+
+        state.deeds.unshift({
+          id: 'd_' + Date.now(),
+          title: titleVal,
+          realm: deedRealmInput.value,
+          stake: deedStakeInput.value,
+          due: deedDueInput.value.trim(),
+          done: false
+        });
+
+        deedTitleInput.value = '';
+        deedDueInput.value = '';
+        renderDeeds();
+        saveState();
+      });
+
+      realmTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          state.activeRealmFilter = tab.getAttribute('data-realm');
+          renderDeeds();
+          saveState();
+        });
+      });
+
+      mercyProtocolBtn.addEventListener('click', () => {
+        state.mercyProtocol = !state.mercyProtocol;
+        renderDeeds();
+        saveState();
+      });
+
+      purgeCompletedBtn.addEventListener('click', () => {
+        state.deeds = (state.deeds || []).filter(d => !d.done);
+        renderDeeds();
+        saveState();
+      });
+
+      releaseTargetBtn.addEventListener('click', () => {
+        state.lockedDeedId = null;
+        renderDeeds();
+        saveState();
+      });
+
+      // Initialize Everything
+      applyVisualSettings();
+      applyCleanMode();
+      updateClock();
+      setInterval(updateClock, 1000);
+      renderWhisper();
+      renderVibeState();
+      renderHydration();
+      renderDeeds();
+    })();
+  </script>
+</body>
+</html>
